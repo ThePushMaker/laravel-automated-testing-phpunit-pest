@@ -4,11 +4,13 @@ namespace Tests\Feature;
 
 use App\Models\Product;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 
 class ProductsTest extends TestCase
 {
+    use RefreshDatabase;
+    
     public function test_homepage_contains_empty_table(): void
     {
         $response = $this->get('/products');
@@ -20,7 +22,8 @@ class ProductsTest extends TestCase
     
     public function test_homepage_contains_non_empty_table(): void
     {
-        // don't create a product here, just for this test
+        // dd(DB::connection()->getConfig());// Muestra la configuracion de conexión
+        
         Product::create([
             'name' => 'Product 1',
             'price' => 123
