@@ -34,5 +34,6 @@ class ProductsTest extends TestCase
         $response->assertStatus(200);
         
         $response->assertDontSee(__('No products found'));
+        $response->assertSee('Product 1');
     }
 }
