@@ -24,7 +24,7 @@ class ProductsTest extends TestCase
     {
         // dd(DB::connection()->getConfig());// Muestra la configuracion de conexión
         
-        Product::create([
+        $product = Product::create([
             'name' => 'Product 1',
             'price' => 123
         ]);
@@ -32,8 +32,8 @@ class ProductsTest extends TestCase
         $response = $this->get('/products');
 
         $response->assertStatus(200);
-        
         $response->assertDontSee(__('No products found'));
-        $response->assertSee('Product 1');
+        $response->assertSee($product->name);
+        $response->assertViewHas('products', fn($collection) => $collection->contains($product));
     }
 }
