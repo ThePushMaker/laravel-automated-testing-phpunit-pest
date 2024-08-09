@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
@@ -13,7 +14,8 @@ class ProductsTest extends TestCase
     
     public function test_homepage_contains_empty_table(): void
     {
-        $response = $this->get('/products');
+        $user = User::factory()->create();
+        $response = $this->actingAs($user)->get('/products');
 
         $response->assertStatus(200);
         
@@ -23,13 +25,14 @@ class ProductsTest extends TestCase
     public function test_homepage_contains_non_empty_table(): void
     {
         // dd(DB::connection()->getConfig());// Muestra la configuracion de conexión
+        $user = User::factory()->create();
         
         $product = Product::create([
             'name' => 'Product 1',
             'price' => 123
         ]);
         
-        $response = $this->get('/products');
+        $response = $this->actingAs($user)->get('/products');
 
         $response->assertStatus(200);
         $response->assertDontSee(__('No products found'));
@@ -39,10 +42,11 @@ class ProductsTest extends TestCase
     
     public function test_paginated_products_table_doesnt_contain_11th_record(): void
     {
+        $user = User::factory()->create();
         $products = Product::factory(11)->create();
         $lastProduct = $products->last();
         
-        $response = $this->get('/products');
+        $response = $this->actingAs($user)->get('/products');
         
         $response->assertStatus(200);
         
