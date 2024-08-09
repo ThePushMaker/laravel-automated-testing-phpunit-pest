@@ -4,12 +4,12 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
+
+Route::redirect('/', '/login');
+
+Route::get('/dashboard', function () {
     return view('welcome');
-});
-
-
-Route::redirect('/dashboard', '/products')->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/products', [ProductController::class, 'index'])->name('products.index');
