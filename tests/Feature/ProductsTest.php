@@ -36,4 +36,19 @@ class ProductsTest extends TestCase
         $response->assertSee($product->name);
         $response->assertViewHas('products', fn($collection) => $collection->contains($product));
     }
+    
+    public function test_paginated_products_table_doesnt_contain_11th_record(): void
+    {
+        $products = Product::factory(11)->create();
+        $lastProduct = $products->last();
+        
+        $response = $this->get('/products');
+        
+        $response->assertStatus(200);
+        
+        $response->assertViewHas('products', function ($collection) use ($lastProduct) {
+           return !$collection->contains($lastProduct); 
+        });
+    }
+    
 }
