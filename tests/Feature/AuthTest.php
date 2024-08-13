@@ -17,7 +17,6 @@ class AuthTest extends TestCase
             'password' => bcrypt('password123')
         ]);
         
-        
         $response = $this->post(route('login'), [
             'email' => $user->email,
             'password' => 'password123'
