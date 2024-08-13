@@ -17,13 +17,14 @@ class AuthTest extends TestCase
             'password' => bcrypt('password123')
         ]);
         
+        
         $response = $this->post(route('login'), [
             'email' => $user->email,
-            'password' => bcrypt('password123')
+            'password' => 'password123'
         ]);
         
         $response->assertStatus(302);
-        $response->assertRedirect(route('home'));
+        $response->assertRedirect(route('products.index'));
     }
     
     public function test_unauthenticated_user_cannot_access_product(): void
