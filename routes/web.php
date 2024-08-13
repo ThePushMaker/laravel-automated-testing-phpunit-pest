@@ -5,11 +5,14 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::redirect('/', '/login');
 
-Route::get('/dashboard', function () {
+Route::get('/', function () {
     return view('welcome');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->name('home');
+
+// Route::redirect('/', '/products');
+
+Route::get('/dashboard', [ProductController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/products', [ProductController::class, 'index'])->name('products.index');
