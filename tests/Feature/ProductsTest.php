@@ -15,7 +15,7 @@ class ProductsTest extends TestCase
     public function test_homepage_contains_empty_table(): void
     {
         $user = User::factory()->create();
-        $response = $this->actingAs($user)->get('/products');
+        $response = $this->actingAs($user)->get(route('products.index'));
 
         $response->assertStatus(200);
         
@@ -32,7 +32,7 @@ class ProductsTest extends TestCase
             'price' => 123
         ]);
         
-        $response = $this->actingAs($user)->get('/products');
+        $response = $this->actingAs($user)->get(route('products.index'));
 
         $response->assertStatus(200);
         $response->assertDontSee(__('No products found'));
@@ -46,7 +46,7 @@ class ProductsTest extends TestCase
         $products = Product::factory(11)->create();
         $lastProduct = $products->last();
         
-        $response = $this->actingAs($user)->get('/products');
+        $response = $this->actingAs($user)->get(route('products.index'));
         
         $response->assertStatus(200);
         
