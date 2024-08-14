@@ -17,6 +17,11 @@ Route::get('/dashboard', [ProductController::class, 'index'])->middleware(['auth
 Route::middleware('auth')->group(function () {
     Route::get('/products', [ProductController::class, 'index'])->name('products.index');
     
+    Route::middleware('is_admin')->group(function () {
+       Route::get('products/create', [ProductController::class, 'create'])->name('products.create');
+       Route::post('products', [ProductController::class, 'store'])->name('products.store'); 
+    });
+    
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
