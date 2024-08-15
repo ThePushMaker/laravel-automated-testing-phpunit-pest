@@ -77,6 +77,14 @@ class ProductsTest extends TestCase
         $response->assertDontSee('Add new product');
     }
     
+    private function test_admin_can_access_product_create_page(): void
+    {
+        $admin = User::create(['is_admin' => true]);
+        $response = $this->actingAs($admin)->get(route('products.create'));
+        
+        $response->assertStatus(200);
+    }
+    
     private function createUser(): User
     {
         return User::factory()->create();
