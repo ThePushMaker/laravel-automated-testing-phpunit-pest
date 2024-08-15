@@ -60,6 +60,15 @@ class ProductsTest extends TestCase
         });
     }
     
+    public function test_admin_can_see_products_create_button(): void
+    {
+        $admin = User::factory()->create(['is_admin' => true]);
+        $response = $this->actingAs($admin)->get(route('products.index'));
+        
+        $response->assertStatus(200);
+        $response->assertSee('Add new product');
+    }
+    
     private function createUser(): User
     {
         return User::factory()->create();
