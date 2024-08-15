@@ -69,6 +69,14 @@ class ProductsTest extends TestCase
         $response->assertSee('Add new product');
     }
     
+    public function test_non_admin_cannot_see_products_create_button(): void
+    {
+        $response = $this->actingAs($this->user)->get(route('products.index'));
+        
+        $response->assertStatus(200);
+        $response->assertDontSee('Add new product');
+    }
+    
     private function createUser(): User
     {
         return User::factory()->create();
