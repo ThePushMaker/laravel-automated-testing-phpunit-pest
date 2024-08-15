@@ -85,6 +85,13 @@ class ProductsTest extends TestCase
         $response->assertStatus(200);
     }
     
+    private function test_non_admin_cannot_access_product_create_page(): void
+    {
+        $response = $this->actingAs($this->user)->get(route('products.create'));
+        
+        $response->assertStatus(403);
+    }
+    
     private function createUser(): User
     {
         return User::factory()->create();
