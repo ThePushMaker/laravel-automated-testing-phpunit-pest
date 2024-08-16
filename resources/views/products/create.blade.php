@@ -11,7 +11,32 @@
               <div class="overflow-hidden overflow-x-auto p-6 bg-white border-b border-gray-200">
                   <div class="min-w-full align-middle">
                   
+                    <form
+                      method="POST"
+                      action="{{ route('products.store') }}"
+                    >
+                    @csrf
+                    <div class="flex flex-row gap-5">
+                      <!-- Name -->
+                      <div class="w-1/2">
+                        <x-input-label for="name" :value="__('Name')" />
+                        <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
+                      </div>
                       
+                      <!-- Price -->
+                      <div class="w-1/2">
+                        <x-input-label for="price" :value="__('Price')" />
+                        <x-text-input id="price" class="block mt-1 w-full" type="text" name="price" :value="old('price')" required autofocus autocomplete="name" />
+                      </div>
+                    </div>
+                      
+                      <div class="flex items-center mt-4">
+                        <x-primary-button>
+                          {{ __('Save') }}
+                        </x-primary-button>
+                      </div>
+                    </form>
+                  
                   </div>
               </div>
           </div>
