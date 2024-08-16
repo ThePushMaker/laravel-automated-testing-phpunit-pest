@@ -58,7 +58,7 @@ class ProductsTest extends TestCase
         $response->assertStatus(200);
         
         $response->assertViewHas('products', function ($collection) use ($lastProduct) {
-           return !$collection->contains($lastProduct); 
+           return !$collection->contains($lastProduct);
         });
     }
     
