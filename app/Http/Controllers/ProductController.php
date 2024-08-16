@@ -30,6 +30,6 @@ class ProductController extends Controller
     
     public function edit(Product $product)
     {
-        return view();
+        return view('products.edit', compact('product'));
     }
 }
