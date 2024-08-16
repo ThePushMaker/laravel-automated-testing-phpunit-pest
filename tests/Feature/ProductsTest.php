@@ -78,18 +78,37 @@ class ProductsTest extends TestCase
         $response->assertDontSee('Add new product');
     }
     
-    private function test_admin_can_access_product_create_page(): void
+    public function test_admin_can_access_product_create_page(): void
     {
         $response = $this->actingAs($this->admin)->get(route('products.create'));
         
         $response->assertStatus(200);
     }
     
-    private function test_non_admin_cannot_access_product_create_page(): void
+    public function test_non_admin_cannot_access_product_create_page(): void
     {
         $response = $this->actingAs($this->user)->get(route('products.create'));
         
         $response->assertStatus(403);
+    }
+    
+    public function test_create_product_successful(): void
+    {
+        $product = [
+            'name' => 'Product 123',
+            'price' => 1234
+        ];
+        
+        $response = $this->actingAs($this->admin)->post(route('products.index'), $product);
+        
+        $response->assertStatus(302);
+        $response->assertRedirect(route('products.index'));
+        
+        $this->assertDatabaseHas('products', $product);
+        
+        $lastProduct = Product::latest()->first();
+        $this->assertEquals($product['name'], $lastProduct->name);
+        $this->assertEquals($product['price'], $lastProduct->price);
     }
     
     private function createUser(bool $isAdmin = false): User
