@@ -65,6 +65,15 @@
                                             >
                                                 Edit
                                             </a>
+                                            <form
+                                                action="{{ route('products.destroy', $product) }}"
+                                                method="POST"
+                                                class="inline-block"
+                                            >
+                                                @csrf
+                                                @method('DELETE')
+                                                <x-primary-button onclick="return confirm('Are you sure?')" class="bg-red-600 text-white">Delete</x-primary-button>
+                                            </form>
                                         </td>
                                     @endif
                                 </tr>
