@@ -16,20 +16,25 @@ class ProductController extends Controller
         return view('products.index', compact('products'));
     }
     
-    public function create()
+    public function create(): View
     {
         return view('products.create');
     }
     
-    public function store(StoreProductRequest $request)
+    public function store(StoreProductRequest $request): \Illuminate\Http\RedirectResponse
     {
         Product::create($request->validated());
         
         return redirect()->route('products.index');
     }
     
-    public function edit(Product $product)
+    public function edit(Product $product): View
     {
         return view('products.edit', compact('product'));
+    }
+    
+    public function update(Request $request, Product $product)
+    {
+        //
     }
 }

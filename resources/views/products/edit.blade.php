@@ -13,20 +13,22 @@
                   
                     <form
                       method="POST"
-                      action="{{ route('products.store') }}"
+                      action="{{ route('products.update', $product) }}"
                     >
                     @csrf
+                    @method('PUT')
+                    
                     <div class="flex flex-row gap-5">
                       <!-- Name -->
                       <div class="w-1/2">
                         <x-input-label for="name" :value="__('Name')" />
-                        <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
+                        <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="$product->name" required autofocus autocomplete="name" />
                       </div>
                       
                       <!-- Price -->
                       <div class="w-1/2">
                         <x-input-label for="price" :value="__('Price')" />
-                        <x-text-input id="price" class="block mt-1 w-full" type="text" name="price" :value="old('price')" required autofocus autocomplete="name" />
+                        <x-text-input id="price" class="block mt-1 w-full" type="text" name="price" :value="$product->price" required autofocus autocomplete="name" />
                       </div>
                     </div>
                       
