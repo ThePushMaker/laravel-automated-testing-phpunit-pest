@@ -33,7 +33,7 @@ class ProductController extends Controller
     {
         return view('products.edit', compact('product'));
     }
-    
+
     public function update(UpdateProductRequest $request, Product $product)
     {
         $product->update($request->validated());

@@ -123,6 +123,19 @@ class ProductsTest extends TestCase
         $response->assertViewHas('product', $product);
     }
     
+    public function test_produduct_update_validation_errror_redirects_back_to_form(): void
+    {
+        $product = Product::factory()->create();
+        
+        $response = $this->actingAs($this->admin)->put(route('products.update', $product), [
+            'name' => '',
+            'price' => ''
+        ]);
+        
+        $response->assertStatus(302);
+        $response->assertInvalid(['name', 'price']);
+    }
+    
     private function createUser(bool $isAdmin = false): User
     {
         return User::factory()->create([
