@@ -149,11 +149,10 @@ class ProductsTest extends TestCase
         $this->assertDatabaseCount('products', 0);
     }
     
-    private function createUser(bool $isAdmin = false): User
+    protected function createUser(bool $isAdmin = false): User
     {
         return User::factory()->create([
             'is_admin' => $isAdmin
         ]);
     }
-    
 }
