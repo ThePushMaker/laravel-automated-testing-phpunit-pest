@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Product;
 use App\Models\User;
+use App\Traits\TestHelpers\CreateUserTrait;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
@@ -11,6 +12,7 @@ use Tests\TestCase;
 class ProductsTest extends TestCase
 {
     use RefreshDatabase;
+    use CreateUserTrait;
     
     private User $user;
     private User $admin;
@@ -147,12 +149,5 @@ class ProductsTest extends TestCase
         
         $this->assertDatabaseMissing('products', $product->toArray());
         $this->assertDatabaseCount('products', 0);
-    }
-    
-    protected function createUser(bool $isAdmin = false): User
-    {
-        return User::factory()->create([
-            'is_admin' => $isAdmin
-        ]);
     }
 }

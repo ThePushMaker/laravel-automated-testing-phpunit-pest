@@ -14,7 +14,7 @@ class ProductsTest extends TestCase
     public function test_api_returns_products_list(): void
     {
         $product = Product::factory()->create();
-        $response = $this->getJson(route('api-products.index'));
+        $response = $this->getJson(route('api.products.index'));
         
         $response->assertJson([$product->toArray()]);
     }
@@ -25,19 +25,19 @@ class ProductsTest extends TestCase
             'name' => 'Product 1',
             'price' => 1234
         ];
-        $response = $this->postJson(route('api-products.store'), $product);
+        $response = $this->postJson(route('api.products.store'), $product);
         
         $response->assertStatus(201);
         $response->assertJson($product);
     }
     
-    public function test_api_invalid_store_returns_error(): void
+    public function test_api_product_invalid_store_returns_error(): void
     {
         $product = [
             'name' => '',
             'price' => 1234
         ];
-        $response = $this->postJson(route('api-products.store'), $product);
+        $response = $this->postJson(route('api.products.store'), $product);
         
         $response->assertStatus(422);
     }
