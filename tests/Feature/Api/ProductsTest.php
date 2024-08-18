@@ -28,7 +28,8 @@ class ProductsTest extends TestCase
     public function test_api_returns_products_list(): void
     {
         $product = Product::factory()->create();
+        $response = $this->getJson(route('api-products.index'));
         
-        // $response = $this->getJson(route('api-products._index'));
+        $response->assertJson([$product->toArray()]);
     }
 }
