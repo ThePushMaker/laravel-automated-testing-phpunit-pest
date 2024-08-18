@@ -11,7 +11,7 @@ Route::get('/user', function (Request $request) {
 Route::apiResource('api-products', ApiProductController::class)->names([
     'index' => 'api-products.index',
     'show' => 'api-products.show',
-    'store' => 'api.products.store',
-    'update' => 'api.products.update',
-    'destroy' => 'api.products.destroy',
+    'store' => 'api-products.store',
+    'update' => 'api-products.update',
+    'destroy' => 'api-products.destroy',
 ]);
