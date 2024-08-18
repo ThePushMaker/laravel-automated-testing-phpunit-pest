@@ -30,4 +30,15 @@ class ProductsTest extends TestCase
         $response->assertStatus(201);
         $response->assertJson($product);
     }
+    
+    public function test_api_invalid_store_returns_error(): void
+    {
+        $product = [
+            'name' => '',
+            'price' => 1234
+        ];
+        $response = $this->postJson(route('api-products.store'), $product);
+        
+        $response->assertStatus(422);
+    }
 }
