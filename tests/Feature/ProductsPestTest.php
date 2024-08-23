@@ -7,9 +7,8 @@ beforeEach(function() {
 });
 
 test('homepage contains empty table', function () {
-    $response = $this->actingAs($this->user)->get(route('products.index'));
-
-    $response->assertStatus(200);
-    
-    $response->assertSee(__('No products found'));
+    $this->actingAs($this->user)
+        ->get(route('products.index'))
+        ->assertStatus(200)
+        ->assertSee(__('No products found'));
 });
