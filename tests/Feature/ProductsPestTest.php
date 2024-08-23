@@ -41,5 +41,5 @@ test('create product successful', function () {
     
     $lastProduct = Product::latest()->first();
     expect($lastProduct->name)->toBe($product['name']);
-    expect($lastProduct->price)->toBe(floatval($product['price']));
+    expect(floatval($lastProduct->price))->toBe(floatval($product['price']));
 });
