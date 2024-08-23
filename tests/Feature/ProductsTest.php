@@ -103,7 +103,6 @@ class ProductsTest extends TestCase
         
         $response = $this->actingAs($this->admin)->post(route('products.index'), $product);
         
-        $response->assertStatus(302);
         $response->assertRedirect(route('products.index'));
         
         $this->assertDatabaseHas('products', $product);
@@ -144,7 +143,6 @@ class ProductsTest extends TestCase
         
         $response = $this->actingAs($this->admin)->delete(route('products.destroy', $product));
         
-        $response->assertStatus(302);
         $response->assertRedirect(route('products.index'));
         
         $this->assertDatabaseMissing('products', $product->toArray());

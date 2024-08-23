@@ -11,6 +11,9 @@
 |
 */
 
+use App\Models\Product;
+use App\Models\User;
+
 uses(
     Tests\TestCase::class,
     Illuminate\Foundation\Testing\RefreshDatabase::class,
@@ -42,7 +45,17 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function something()
+function createUser(bool $isAdmin = false): User
 {
-    // ..
+    return User::factory()->create([
+        'is_admin' => $isAdmin,
+    ]);
+}
+
+function createProduct(string $name = '', float $price): Product
+{
+    return Product::create([
+        'name' => $name,
+        'price' => $price
+    ]);
 }

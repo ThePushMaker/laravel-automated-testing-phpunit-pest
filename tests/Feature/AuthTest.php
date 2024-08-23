@@ -30,7 +30,6 @@ class AuthTest extends TestCase
     {
         $response = $this->get(route('products.index'));
 
-        $response->assertStatus(302);
         $response->assertRedirect(route('login'));
     }
 }
