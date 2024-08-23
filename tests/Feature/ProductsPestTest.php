@@ -28,6 +28,18 @@ test('homepage contains non empty table', function () {
 });
 
 test('create product successful', function () {
-    // $this->actingAs($this->admin)
-    //     ->post(route('products.store'), $product)
+    $product = [
+        'name' => 'Product 123',
+        'price' => 1234
+    ];
+    
+    $this->actingAs($this->admin)
+        ->post(route('products.store'), $product)
+        ->assertRedirect(route('products.index'));
+        
+    $this->assertDatabaseHas('products', $product);
+    
+    $lastProduct = Product::latest()->first();
+    expect($lastProduct->name)->toBe($product['name']);
+    expect($lastProduct->price)->toBe(floatval($product['price']));
 });
